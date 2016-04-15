@@ -8,22 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		9437BEBC1CC024AB005AAF07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BEBB1CC024AB005AAF07 /* AppDelegate.swift */; };
-		9437BEBE1CC024AB005AAF07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BEBD1CC024AB005AAF07 /* ViewController.swift */; };
 		9437BEC11CC024AB005AAF07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9437BEBF1CC024AB005AAF07 /* Main.storyboard */; };
 		9437BEC41CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9437BEC21CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodeld */; };
 		9437BEC61CC024AB005AAF07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9437BEC51CC024AB005AAF07 /* Assets.xcassets */; };
 		9437BEC91CC024AB005AAF07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9437BEC71CC024AB005AAF07 /* LaunchScreen.storyboard */; };
+		9437BED41CC025BF005AAF07 /* TimeSelectionTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED31CC025BF005AAF07 /* TimeSelectionTVController.swift */; };
+		9437BED61CC026D4005AAF07 /* TimeSelectionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */; };
+		9437BED81CC09DCC005AAF07 /* TaskBuilderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9437BEB81CC024AB005AAF07 /* One Day at a Time Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Day at a Time Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9437BEBB1CC024AB005AAF07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9437BEBD1CC024AB005AAF07 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9437BEC01CC024AB005AAF07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9437BEC31CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = One_Day_at_a_Time_Planner.xcdatamodel; sourceTree = "<group>"; };
 		9437BEC51CC024AB005AAF07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9437BEC81CC024AB005AAF07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9437BECA1CC024AB005AAF07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9437BED31CC025BF005AAF07 /* TimeSelectionTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSelectionTVController.swift; path = ../TimeSelectionTVController.swift; sourceTree = "<group>"; };
+		9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSelectionTVCell.swift; sourceTree = "<group>"; };
+		9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBuilderViewController.swift; sourceTree = "<group>"; };
+		D1109DD0935702262289E61C /* Pods_One_Day_at_a_Time_Planner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_One_Day_at_a_Time_Planner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +47,7 @@
 			children = (
 				9437BEBA1CC024AB005AAF07 /* One Day at a Time Planner */,
 				9437BEB91CC024AB005AAF07 /* Products */,
+				F14BCD8991F9E74394E1C4B5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +62,33 @@
 		9437BEBA1CC024AB005AAF07 /* One Day at a Time Planner */ = {
 			isa = PBXGroup;
 			children = (
-				9437BEBB1CC024AB005AAF07 /* AppDelegate.swift */,
-				9437BEBD1CC024AB005AAF07 /* ViewController.swift */,
+				9437BED31CC025BF005AAF07 /* TimeSelectionTVController.swift */,
+				9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */,
+				9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */,
 				9437BEBF1CC024AB005AAF07 /* Main.storyboard */,
-				9437BEC51CC024AB005AAF07 /* Assets.xcassets */,
-				9437BEC71CC024AB005AAF07 /* LaunchScreen.storyboard */,
-				9437BECA1CC024AB005AAF07 /* Info.plist */,
-				9437BEC21CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodeld */,
+				9437BED01CC024C0005AAF07 /* Miscellaneous */,
 			);
 			path = "One Day at a Time Planner";
+			sourceTree = "<group>";
+		};
+		9437BED01CC024C0005AAF07 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				9437BEC21CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodeld */,
+				9437BECA1CC024AB005AAF07 /* Info.plist */,
+				9437BEC71CC024AB005AAF07 /* LaunchScreen.storyboard */,
+				9437BEC51CC024AB005AAF07 /* Assets.xcassets */,
+				9437BEBB1CC024AB005AAF07 /* AppDelegate.swift */,
+			);
+			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		F14BCD8991F9E74394E1C4B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1109DD0935702262289E61C /* Pods_One_Day_at_a_Time_Planner.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,9 +163,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9437BEBE1CC024AB005AAF07 /* ViewController.swift in Sources */,
 				9437BEBC1CC024AB005AAF07 /* AppDelegate.swift in Sources */,
 				9437BEC41CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodeld in Sources */,
+				9437BED81CC09DCC005AAF07 /* TaskBuilderViewController.swift in Sources */,
+				9437BED41CC025BF005AAF07 /* TimeSelectionTVController.swift in Sources */,
+				9437BED61CC026D4005AAF07 /* TimeSelectionTVCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +282,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "One Day at a Time Planner/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.independentfly.One-Day-at-a-Time-Planner";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flysaiah.One-Day-at-a-Time-Planner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -267,7 +293,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "One Day at a Time Planner/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.independentfly.One-Day-at-a-Time-Planner";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flysaiah.One-Day-at-a-Time-Planner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -291,6 +317,7 @@
 				9437BECF1CC024AB005AAF07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
