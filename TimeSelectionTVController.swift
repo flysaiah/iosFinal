@@ -8,10 +8,16 @@
 
 import UIKit
 
-class TimeSelectionTVController: UITableViewController, taskBuilderDelegate {
+class TimeSelectionTVController: UITableViewController {
     
     private var cellArray = [Bool](count: 24, repeatedValue: false)   // true means the given index is currently selected
     
+    private struct tsModel {
+        var tasks: [Task]
+        var freeTime: [(Int, Int)]
+    }
+    
+    private var model = tsModel(tasks: [], freeTime: [])
     
     // MARK: TableView constructors
     
@@ -46,24 +52,19 @@ class TimeSelectionTVController: UITableViewController, taskBuilderDelegate {
         return String(time) + amPm
     }
     
-    // MARK: Delegate functions
-    
-    func getFreeTime() -> [(Int, Int)] {
+    private func updateFreeTime() {
         var freeTime: [(Int, Int)] = []
         freeTime.append((1,2))
-        return freeTime
+        model.freeTime = freeTime
     }
     
     // MARK: Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            if identifier == "Show TaskBuilder" {
-                if let taskBuilder = segue.destinationViewController as? TaskBuilderViewController {
-                    taskBuilder.delegate = self
-                }
-            }
+    @IBAction func returnFromTaskBuilder(segue: UIStoryboardSegue) {
+        if let dataSource = segue.sourceViewController as? TaskBuilderViewController {
+            model.tasks = dataSource.getTasks()
         }
     }
+    
     
 }

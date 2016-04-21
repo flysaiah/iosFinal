@@ -8,71 +8,61 @@
 
 import UIKit
 
-protocol taskBuilderDelegate: class {
-    func getFreeTime() -> [(Int, Int)]
-}
-
 class TaskBuilderViewController: UIViewController {
     
-    struct Task: CustomStringConvertible {
-        var title: String
-        var desc: String?
-        var estimatedTime: Int
-        
-        var description: String {
-            get {
-                return "Task(\(title), \(desc), \(estimatedTime))"
-            }
-        }
-    }
+    // MARK: Model
     
-    private struct tbModel: CustomStringConvertible {
-        var tasks: [Task]
-        var freeTime: [(Int, Int)]
-        
-        var description: String {
-            get {
-                return "tbModel(Tasks: \(tasks), freeTime: \(freeTime)"
-            }
-        }
-    }
+    private var tasks = [Task]()
     
-    private var tbm = tbModel(tasks: [], freeTime: [])
-    
-    var delegate: taskBuilderDelegate? {
-        didSet {
-            tbm.freeTime = delegate!.getFreeTime()
-        }
-    }
+    // MARK: IBOutlets/Actions
     
     @IBOutlet weak var enterTaskField: UITextField!
     @IBOutlet weak var enterDescField: UITextField!
-    
-    // This should eventually be a different UI element
     @IBOutlet weak var etField: UITextField!
-    
+    @IBOutlet weak var prioritySwitch: UISwitch!
+
     @IBAction func addTask(sender: UIButton) {
-        
-        // This needs to be cleaned up later
-        if let titleText = enterTaskField.text {
-            if let est_time = etField.text {
-                if let ET = NSNumberFormatter().numberFromString(est_time) {
-                    let newTask = Task(title: titleText, desc: enterDescField.text, estimatedTime: Int(ET))
-                    tbm.tasks.append(newTask)
-                } else {
-                    print("Error here")
-                }
-            } else {
-                print("ERRRRRRRERRRRR")
-            }
+        if enterTaskField.text == nil || enterTaskField.text == "" {
+            validationError("no title")
+        } else if etField.text == nil || etField.text! == "" {
+            validationError("no ETC")
+        } else if let ET = NSNumberFormatter().numberFromString(etField.text!) {
+            let newTask = Task(title: enterTaskField.text!, description: enterDescField.text, estimatedTime: Int(ET), highPriority: prioritySwitch.on)
+            tasks.append(newTask)
+            
+            // reset fields
+            enterTaskField.text = ""
+            enterDescField.text = ""
+            etField.text = ""
         } else {
-            print("Error handling should be happening here")
+            validationError("bad ETC")
         }
-        
-        print(String(tbm))
-        
-        // reset fields
-        enterTaskField.text = ""
-        enterDescField.text = ""
+    }
+    
+    // MARK: Public functions
+    
+    func getTasks() -> [Task] {
+        return tasks
+    }
+    
+    // MARK: Internal functions
+    
+    private func validationError(type: String) {
+        var message: String
+        switch type {
+            case "bad ETC":
+                message = "You must enter an integer for ETC"
+
+            case "no ETC":
+                message = "You must enter the estimated time to complete"
+
+            case "no title":
+                message = "You must enter a title for your task"
+
+            default: message = "Bad input"
+        }
+        let alert = UIAlertController(title: "Bad input", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
