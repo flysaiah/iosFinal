@@ -35,6 +35,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
             // reset fields
             enterTaskField.text = ""
             etField.text = ""
+            enterTaskField.becomeFirstResponder()
         } else {
             validationError("bad ETC")
         }
@@ -56,6 +57,8 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Task Cell", forIndexPath: indexPath)
         cell.textLabel?.text = tasks[indexPath.row].title
+        // to achieve bottom-anchored tablecell behavior
+        cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
         return cell
     }
     
@@ -96,14 +99,13 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
+        // ensures keyboard won't cover input fields
         if !currentlyEditing {
             if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                let movementDuration:NSTimeInterval = 0.3
-                let movement:CGFloat = -1 * keyboardSize.height
                 UIView.beginAnimations("animateView", context: nil)
                 UIView.setAnimationBeginsFromCurrentState(true)
-                UIView.setAnimationDuration(movementDuration)
-                self.view.frame = CGRectOffset(self.view.frame, 0,  movement)
+                UIView.setAnimationDuration(0.3)
+                self.view.frame = CGRectOffset(self.view.frame, 0,  keyboardSize.height * -1)
                 UIView.commitAnimations()
                 currentlyEditing = true
             }
@@ -112,29 +114,55 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
+        // reset view
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            let movementDuration:NSTimeInterval = 0.3
-            let movement:CGFloat = keyboardSize.height
             UIView.beginAnimations("animateView", context: nil)
             UIView.setAnimationBeginsFromCurrentState(true)
-            UIView.setAnimationDuration(movementDuration)
-            self.view.frame = CGRectOffset(self.view.frame, 0,  movement)
+            UIView.setAnimationDuration(0.3)
+            self.view.frame = CGRectOffset(self.view.frame, 0,  keyboardSize.height)
             UIView.commitAnimations()
             currentlyEditing = false;
         }
     }
     
-    // MARK: Life cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //enterTaskField.becomeFirstResponder()
-        
+    private func addObservers() {
+        // add observers to keyboard showing/hiding
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    private func addGestures() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.taskTable.addGestureRecognizer(tap)
+    }
+    
+    @objc private func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    // MARK: Life cycle
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        enterTaskField.becomeFirstResponder()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        addObservers()
+        addGestures()
+
+        
+        // to achieve bottom-anchored tablecell behavior
+        self.taskTable.transform = CGAffineTransformMakeScale(1, -1)
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         
     }
 }
