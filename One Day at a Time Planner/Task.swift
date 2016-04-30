@@ -10,22 +10,18 @@ import Foundation
 
 class Task: CustomStringConvertible {
     var title: String
-    var desc: String?
     var estimatedTime: Int
     var highPriority: Bool
     
-    required init(title t: String, description d: String?, estimatedTime et: Int, highPriority hp: Bool) {
+    required init(title t: String, estimatedTime et: Int, highPriority hp: Bool) {
         title = t
-        if let text = d {
-            if text != "" {desc = text}
-        }
         estimatedTime = et
         highPriority = hp
     }
     
     var description: String {
         get {
-            return "Task(\(title), \(desc), \(estimatedTime), \(highPriority))"
+            return "Task(\(title), \(estimatedTime), \(highPriority))"
         }
     }
 }
