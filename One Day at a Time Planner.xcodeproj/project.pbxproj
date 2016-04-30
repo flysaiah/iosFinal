@@ -15,6 +15,7 @@
 		9437BED41CC025BF005AAF07 /* TimeSelectionTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED31CC025BF005AAF07 /* TimeSelectionTVController.swift */; };
 		9437BED61CC026D4005AAF07 /* TimeSelectionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */; };
 		9437BED81CC09DCC005AAF07 /* TaskBuilderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */; };
+		94559CBC1CD5453500CAAE89 /* TaskBuilderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94559CBB1CD5453500CAAE89 /* TaskBuilderTVCell.swift */; };
 		94F22A701CC66BA100A0C291 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F22A6F1CC66BA000A0C291 /* Task.swift */; };
 		ED0B5D1C389C2B5DB051CE57 /* Pods_One_Day_at_a_Time_Planner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1109DD0935702262289E61C /* Pods_One_Day_at_a_Time_Planner.framework */; };
 /* End PBXBuildFile section */
@@ -31,6 +32,7 @@
 		9437BED31CC025BF005AAF07 /* TimeSelectionTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSelectionTVController.swift; path = ../TimeSelectionTVController.swift; sourceTree = "<group>"; };
 		9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSelectionTVCell.swift; sourceTree = "<group>"; };
 		9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBuilderViewController.swift; sourceTree = "<group>"; };
+		94559CBB1CD5453500CAAE89 /* TaskBuilderTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBuilderTVCell.swift; sourceTree = "<group>"; };
 		94F22A6F1CC66BA000A0C291 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		A3A088444117149E44568B7A /* Pods-One Day at a Time Planner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One Day at a Time Planner.release.xcconfig"; path = "Pods/Target Support Files/Pods-One Day at a Time Planner/Pods-One Day at a Time Planner.release.xcconfig"; sourceTree = "<group>"; };
 		D1109DD0935702262289E61C /* Pods_One_Day_at_a_Time_Planner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_One_Day_at_a_Time_Planner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +85,7 @@
 				94F22A6F1CC66BA000A0C291 /* Task.swift */,
 				9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */,
 				9437BEBF1CC024AB005AAF07 /* Main.storyboard */,
+				94559CBB1CD5453500CAAE89 /* TaskBuilderTVCell.swift */,
 				9437BED01CC024C0005AAF07 /* Miscellaneous */,
 			);
 			path = "One Day at a Time Planner";
@@ -233,6 +236,7 @@
 			files = (
 				9437BEBC1CC024AB005AAF07 /* AppDelegate.swift in Sources */,
 				9437BEC41CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodeld in Sources */,
+				94559CBC1CD5453500CAAE89 /* TaskBuilderTVCell.swift in Sources */,
 				9437BED81CC09DCC005AAF07 /* TaskBuilderViewController.swift in Sources */,
 				9437BED41CC025BF005AAF07 /* TimeSelectionTVController.swift in Sources */,
 				94F22A701CC66BA100A0C291 /* Task.swift in Sources */,

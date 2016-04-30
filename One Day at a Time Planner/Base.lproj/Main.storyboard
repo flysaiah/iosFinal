@@ -123,13 +123,40 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="340"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Cell" id="iTp-LQ-T59">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Cell" id="iTp-LQ-T59" customClass="TaskBuilderTVCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iTp-LQ-T59" id="NTQ-lD-3f3">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="100" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyk-eM-mvj">
+                                                    <rect key="frame" x="8" y="8" width="532" height="27"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="54" placeholderIntrinsicHeight="27" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zU-LI-KD2">
+                                                    <rect key="frame" x="548" y="8" width="54" height="27"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.99901622533798218" green="0.19361034035682678" blue="0.0017716928850859404" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cyk-eM-mvj" firstAttribute="leading" secondItem="NTQ-lD-3f3" secondAttribute="leadingMargin" id="0VV-kH-0PK"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="7zU-LI-KD2" secondAttribute="bottom" id="CJb-98-Hys"/>
+                                                <constraint firstItem="cyk-eM-mvj" firstAttribute="top" secondItem="NTQ-lD-3f3" secondAttribute="topMargin" id="ZNu-va-qp0"/>
+                                                <constraint firstItem="7zU-LI-KD2" firstAttribute="leading" secondItem="cyk-eM-mvj" secondAttribute="trailing" constant="8" id="dMe-7g-EnX"/>
+                                                <constraint firstItem="7zU-LI-KD2" firstAttribute="trailing" secondItem="NTQ-lD-3f3" secondAttribute="trailingMargin" constant="10" id="hb6-tV-FKD"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cyk-eM-mvj" secondAttribute="bottom" id="nPz-wE-jLV"/>
+                                                <constraint firstItem="7zU-LI-KD2" firstAttribute="top" secondItem="NTQ-lD-3f3" secondAttribute="topMargin" id="pKT-yn-hvQ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="priorityLabel" destination="7zU-LI-KD2" id="g8c-eM-Aow"/>
+                                            <outlet property="taskLabel" destination="cyk-eM-mvj" id="ACb-Ua-XeT"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -213,7 +240,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="timeLabel" destination="Hb3-zd-cB9" id="AEu-1t-eHd"/>
+                                    <outlet property="timeLabel" destination="Hb3-zd-cB9" id="Zrt-t4-rJL"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

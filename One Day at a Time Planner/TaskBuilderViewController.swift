@@ -55,8 +55,10 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Task Cell", forIndexPath: indexPath)
-        cell.textLabel?.text = tasks[indexPath.row].title
+        let cell = tableView.dequeueReusableCellWithIdentifier("Task Cell", forIndexPath: indexPath) as! TaskBuilderTVCell   // There is only one prototype cell, so we know we can cast it
+        cell.taskLabel.text = tasks[indexPath.row].description
+        cell.priorityLabel.text = tasks[indexPath.row].getPriority() ? "Priority" : ""
+            
         // to achieve bottom-anchored tablecell behavior
         cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
         return cell

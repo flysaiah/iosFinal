@@ -9,9 +9,9 @@
 import Foundation
 
 class Task: CustomStringConvertible {
-    var title: String
-    var estimatedTime: Int
-    var highPriority: Bool
+    private var title: String
+    private var estimatedTime: Int
+    private var highPriority: Bool
     
     required init(title t: String, estimatedTime et: Int, highPriority hp: Bool) {
         title = t
@@ -21,7 +21,19 @@ class Task: CustomStringConvertible {
     
     var description: String {
         get {
-            return "Task(\(title), \(estimatedTime), \(highPriority))"
+            return "\(title): \(estimatedTime) min"
         }
+    }
+    
+    func getTitle() -> String {
+        return title
+    }
+    
+    func getEstimatedTime() -> Int {
+        return estimatedTime
+    }
+    
+    func getPriority() -> Bool {
+        return highPriority
     }
 }
