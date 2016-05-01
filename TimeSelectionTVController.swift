@@ -57,6 +57,7 @@ class TimeSelectionTVController: UITableViewController {
     }
     
     private func updateFreeTime() {
+        let selectedRows = self.tableView.indexPathsForSelectedRows
         var freeTime: [(Int, Int)] = []
         freeTime.append((1,2))
         model.freeTime = freeTime

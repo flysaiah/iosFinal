@@ -7,8 +7,20 @@
 //
 
 import UIKit
+import MGSwipeTableCell
 
-class TimeSelectionTVCell: UITableViewCell {
+class TimeSelectionTVCell: MGSwipeTableCell {
     
     @IBOutlet weak var timeLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.leftButtons = makeButtons()
+    }
+    
+    private func makeButtons() -> [MGSwipeButton] {
+        return [MGSwipeButton(title: "15", backgroundColor: UIColor.blueColor()), MGSwipeButton(title: "30", backgroundColor: UIColor.redColor()), MGSwipeButton(title: "45", backgroundColor: UIColor.greenColor())]
+    }
+    
+    
 }

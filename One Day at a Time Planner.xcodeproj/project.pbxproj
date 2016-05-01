@@ -32,6 +32,7 @@
 		9437BED31CC025BF005AAF07 /* TimeSelectionTVController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeSelectionTVController.swift; path = ../TimeSelectionTVController.swift; sourceTree = "<group>"; };
 		9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSelectionTVCell.swift; sourceTree = "<group>"; };
 		9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBuilderViewController.swift; sourceTree = "<group>"; };
+		945590E11CD5CFEE009BD766 /* MGBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGBridgingHeader.h; sourceTree = "<group>"; };
 		94559CBB1CD5453500CAAE89 /* TaskBuilderTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBuilderTVCell.swift; sourceTree = "<group>"; };
 		94F22A6F1CC66BA000A0C291 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		A3A088444117149E44568B7A /* Pods-One Day at a Time Planner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One Day at a Time Planner.release.xcconfig"; path = "Pods/Target Support Files/Pods-One Day at a Time Planner/Pods-One Day at a Time Planner.release.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 				9437BEC71CC024AB005AAF07 /* LaunchScreen.storyboard */,
 				9437BEC51CC024AB005AAF07 /* Assets.xcassets */,
 				9437BEBB1CC024AB005AAF07 /* AppDelegate.swift */,
+				945590E11CD5CFEE009BD766 /* MGBridgingHeader.h */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -358,6 +360,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flysaiah.One-Day-at-a-Time-Planner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/isaiah/Documents/One Day at a Time Planner/One Day at a Time Planner/MGBridgingHeader.h";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -370,6 +374,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flysaiah.One-Day-at-a-Time-Planner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/isaiah/Documents/One Day at a Time Planner/One Day at a Time Planner/MGBridgingHeader.h";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
