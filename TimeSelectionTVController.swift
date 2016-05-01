@@ -12,12 +12,16 @@ class TimeSelectionTVController: UITableViewController {
     
     private var cellArray = [Bool](count: 24, repeatedValue: false)   // true means the given index is currently selected
     
-    private struct tsModel {
-        var tasks: [Task]
-        var freeTime: [(Int, Int)]
-    }
+    private var model = todoInfo(tasks: [], freeTime: [])
     
-    private var model = tsModel(tasks: [], freeTime: [])
+    // This will be set when task builder returns with updated task array
+    var tasks: [Task]? {
+        didSet {
+            model.tasks = tasks!
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(segueToTaskArranger))
+            updateUI()
+        }
+    }
     
     // MARK: TableView constructors
     
@@ -58,13 +62,31 @@ class TimeSelectionTVController: UITableViewController {
         model.freeTime = freeTime
     }
     
-    // MARK: Navigation
+    private func updateUI() {
+        // pre-select cells
+    }
     
-    @IBAction func returnFromTaskBuilder(segue: UIStoryboardSegue) {
-        if let dataSource = segue.sourceViewController as? TaskBuilderViewController {
-            model.tasks = dataSource.getTasks()
+    // MARK: Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // First, update model
+        updateFreeTime()
+        if let identifier = segue.identifier {
+            switch identifier {
+                case "Show Task Builder":
+                    if let nav = segue.destinationViewController as? UINavigationController {
+                        if let tb = nav.topViewController as? TaskBuilderViewController {
+                            tb.freeTime = model.freeTime
+                        }
+                    }
+                case "Show Task Arranger":
+                    print("WOOO!!!")
+            default: break
+            }
         }
     }
     
+    @objc private func segueToTaskArranger() {
+        self.performSegueWithIdentifier("Show Task Arranger", sender: self.navigationItem.rightBarButtonItem)
+    }
     
 }

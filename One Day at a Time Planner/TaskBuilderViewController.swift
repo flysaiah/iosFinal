@@ -12,8 +12,15 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     
     // MARK: Private data
     
-    private var tasks = [Task]()
+    private var taskInfo = todoInfo(tasks: [], freeTime: [])
     private var currentlyEditing = false;
+    
+    // MARK: Data set by others
+    var freeTime: [(Int, Int)]? {
+        didSet {
+            taskInfo.freeTime = freeTime!
+        }
+    }
     
     // MARK: IBOutlets/Actions
     
@@ -21,6 +28,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     @IBOutlet weak var etField: UITextField!
     @IBOutlet weak var prioritySwitch: UISwitch!
     @IBOutlet weak var taskTable: UITableView!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     @IBAction func addTask(sender: UIButton) {
         if enterTaskField.text == nil || enterTaskField.text == "" {
@@ -29,7 +37,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
             validationError("no ETC")
         } else if let ET = NSNumberFormatter().numberFromString(etField.text!) {
             let newTask = Task(title: enterTaskField.text!, estimatedTime: Int(ET), highPriority: prioritySwitch.on)
-            tasks.append(newTask)
+            taskInfo.tasks.append(newTask)
             taskTable.reloadData()
             
             // reset fields
@@ -41,8 +49,16 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         }
     }
     
-    // MARK: TextField delegate functions
-    
+    @IBAction func deleteTask(sender: UIButton) {
+        if let tbcell = sender.superview?.superview as? TaskBuilderTVCell {
+            if let indexPath = self.taskTable.indexPathForCell(tbcell) {
+                taskInfo.tasks.removeAtIndex(indexPath.row)
+                self.taskTable.reloadData()
+            }
+
+            
+        }
+    }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -51,31 +67,17 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     // MARK: Table view delegate functions
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return taskInfo.tasks.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Task Cell", forIndexPath: indexPath) as! TaskBuilderTVCell   // There is only one prototype cell, so we know we can cast it
-        cell.taskLabel.text = tasks[indexPath.row].description
-        cell.priorityLabel.text = tasks[indexPath.row].getPriority() ? "Priority" : ""
+        cell.taskLabel.text = taskInfo.tasks[indexPath.row].description
+        cell.priorityLabel.text = taskInfo.tasks[indexPath.row].getPriority() ? "Priority" : ""
             
         // to achieve bottom-anchored tablecell behavior
         cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
         return cell
-    }
-    
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-        return UITableViewCellEditingStyle.Delete
-    }
-    
-    func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    // MARK: Public API
-    
-    func getTasks() -> [Task] {
-        return tasks
     }
     
     // MARK: Internal functions
@@ -158,6 +160,8 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         
         // to achieve bottom-anchored tablecell behavior
         self.taskTable.transform = CGAffineTransformMakeScale(1, -1)
+        
+        // Delete button is disabled until someone taps a cell
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -167,4 +171,22 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         
     }
+    
+    // Mark: Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+                case "Show Time Selector":
+                    if let nav = segue.destinationViewController as? UINavigationController {
+                        if let tsvc = nav.topViewController as? TimeSelectionTVController {
+                            tsvc.tasks = taskInfo.tasks
+                        }
+                    }
+            default: break
+            }
+        }
+    }
+    
+    
 }

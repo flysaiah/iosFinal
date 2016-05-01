@@ -119,11 +119,11 @@
                                     <action selector="addTask:" destination="hS5-G3-TeA" eventType="touchUpInside" id="ZpQ-67-Pgo"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0dC-7u-vAE">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0dC-7u-vAE">
                                 <rect key="frame" x="0.0" y="64" width="600" height="340"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Cell" id="iTp-LQ-T59" customClass="TaskBuilderTVCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Cell" id="iTp-LQ-T59" customClass="TaskBuilderTVCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iTp-LQ-T59" id="NTQ-lD-3f3">
@@ -131,24 +131,37 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="100" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyk-eM-mvj">
-                                                    <rect key="frame" x="8" y="8" width="532" height="27"/>
+                                                    <rect key="frame" x="8" y="8" width="482" height="27"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="54" placeholderIntrinsicHeight="27" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zU-LI-KD2">
-                                                    <rect key="frame" x="548" y="8" width="54" height="27"/>
+                                                    <rect key="frame" x="498" y="8" width="54" height="27"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="0.99901622533798218" green="0.19361034035682678" blue="0.0017716928850859404" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.33758520320000002" green="0.01369734303" blue="0.86353772100000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQo-ET-9s3">
+                                                    <rect key="frame" x="562" y="8" width="30" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                                    <state key="normal" title="×">
+                                                        <color key="titleColor" red="0.99901622533798218" green="0.19361034035682678" blue="0.0017716928850859404" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteTask:" destination="hS5-G3-TeA" eventType="touchUpInside" id="bGa-Ys-4RA"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="GQo-ET-9s3" firstAttribute="trailing" secondItem="NTQ-lD-3f3" secondAttribute="trailingMargin" id="0V0-pj-frz"/>
                                                 <constraint firstItem="cyk-eM-mvj" firstAttribute="leading" secondItem="NTQ-lD-3f3" secondAttribute="leadingMargin" id="0VV-kH-0PK"/>
+                                                <constraint firstItem="GQo-ET-9s3" firstAttribute="top" secondItem="NTQ-lD-3f3" secondAttribute="topMargin" id="4jM-mX-Mco"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="7zU-LI-KD2" secondAttribute="bottom" id="CJb-98-Hys"/>
+                                                <constraint firstItem="GQo-ET-9s3" firstAttribute="leading" secondItem="7zU-LI-KD2" secondAttribute="trailing" constant="10" id="KaD-OW-PyB"/>
                                                 <constraint firstItem="cyk-eM-mvj" firstAttribute="top" secondItem="NTQ-lD-3f3" secondAttribute="topMargin" id="ZNu-va-qp0"/>
-                                                <constraint firstItem="7zU-LI-KD2" firstAttribute="leading" secondItem="cyk-eM-mvj" secondAttribute="trailing" constant="8" id="dMe-7g-EnX"/>
-                                                <constraint firstItem="7zU-LI-KD2" firstAttribute="trailing" secondItem="NTQ-lD-3f3" secondAttribute="trailingMargin" constant="10" id="hb6-tV-FKD"/>
+                                                <constraint firstItem="7zU-LI-KD2" firstAttribute="leading" secondItem="cyk-eM-mvj" secondAttribute="trailing" priority="250" constant="8" id="dMe-7g-EnX"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="GQo-ET-9s3" secondAttribute="bottom" id="md7-xu-Vvc"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="cyk-eM-mvj" secondAttribute="bottom" id="nPz-wE-jLV"/>
                                                 <constraint firstItem="7zU-LI-KD2" firstAttribute="top" secondItem="NTQ-lD-3f3" secondAttribute="topMargin" id="pKT-yn-hvQ"/>
                                             </constraints>
@@ -192,7 +205,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Task Builder" id="gDP-vq-MYw">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="0eU-L4-3T9"/>
+                        <barButtonItem key="leftBarButtonItem" title="Edit time" id="lgl-tH-gGO">
+                            <connections>
+                                <segue destination="uXa-Rb-Onq" kind="showDetail" identifier="Show Time Selector" id="1LE-wx-03u"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="2Mb-J5-pjB">
                             <connections>
                                 <segue destination="cNt-Bl-e5V" kind="unwind" unwindAction="returnFromTaskBuilder:" id="4Il-4W-0Cy"/>
@@ -200,6 +217,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="2Mb-J5-pjB" id="9fs-aj-Puw"/>
                         <outlet property="enterTaskField" destination="dQo-Ql-NFo" id="Wk5-yR-91r"/>
                         <outlet property="etField" destination="jJd-IY-wzx" id="zbT-AS-Yvu"/>
                         <outlet property="prioritySwitch" destination="QlI-jo-jgh" id="EWO-gA-rya"/>
@@ -209,9 +227,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Kr-Ej-Qol" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cNt-Bl-e5V" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1883" y="1353"/>
+            <point key="canvasLocation" x="2325" y="1353"/>
         </scene>
-        <!--Time SelectionTV Controller-->
+        <!--Select Free Time-->
         <scene sceneID="QqH-1w-ErR">
             <objects>
                 <tableViewController id="KpT-mp-zoe" customClass="TimeSelectionTVController" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target" sceneMemberID="viewController">
@@ -221,7 +239,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Time Selection Cell" id="vJK-eM-tEE" customClass="TimeSelectionTVCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vJK-eM-tEE" id="N13-BQ-4X7">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -249,16 +267,19 @@
                             <outlet property="delegate" destination="KpT-mp-zoe" id="wdq-z7-a58"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="k4x-XV-x13"/>
-                        <barButtonItem systemItem="done" id="4au-MB-m7Z">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Select Free Time" id="Qgi-MW-oAK">
+                        <barButtonItem key="leftBarButtonItem" title="Add tasks" id="4au-MB-m7Z">
                             <connections>
-                                <segue destination="vGk-Xo-duP" kind="presentation" identifier="Show Task Builder" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="MF6-eQ-tGg"/>
+                                <segue destination="vGk-Xo-duP" kind="showDetail" identifier="Show Task Builder" action="showViewController:sender:" id="MF6-eQ-tGg"/>
                             </connections>
                         </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" id="Qgi-MW-oAK"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="qro-UD-JZ9" kind="showDetail" identifier="Show Task Arranger" id="3JW-3y-Em2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZY-1o-kh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -267,8 +288,9 @@
         <!--Navigation Controller-->
         <scene sceneID="iJj-fn-vzX">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" toolbarHidden="NO" id="uXa-Rb-Onq" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="uXa-Rb-Onq" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XZL-CM-sg6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -285,6 +307,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DKE-Sy-2rT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="285" y="637"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="MXv-31-W05">
+            <objects>
+                <viewController id="qro-UD-JZ9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qAd-T2-0wb"/>
+                        <viewControllerLayoutGuide type="bottom" id="vwU-0j-z9p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hRC-vq-r9f">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FJk-yH-lVq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1053" y="2047"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B4k-ZV-Nfd">
@@ -306,7 +346,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="19I-C6-V7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1071" y="1353"/>
+            <point key="canvasLocation" x="1665" y="1353"/>
         </scene>
     </scenes>
 </document>

@@ -37,3 +37,8 @@ class Task: CustomStringConvertible {
         return highPriority
     }
 }
+
+struct todoInfo {
+    var tasks: [Task]
+    var freeTime: [(Int, Int)]
+}
