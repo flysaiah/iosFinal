@@ -10,7 +10,9 @@ import UIKit
 
 class TimeSelectionTVController: UITableViewController {
     
-    private var cellArray = [Bool](count: 24, repeatedValue: false)   // true means the given index is currently selected
+    // MARK: Private data + model
+    
+    private var cells = [(Bool, Bool, Bool, Bool)](count: 24, repeatedValue: (false, false, false, false))
     
     private var model = todoInfo(tasks: [], freeTime: [])
     
@@ -30,47 +32,51 @@ class TimeSelectionTVController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Time Selection Cell", forIndexPath: indexPath) as! TimeSelectionTVCell
-        cell.timeLabel.text = getRowText(indexPath.row)
-        cell.timeLabel.textColor = UIColor.blueColor();
+        let cell = tableView.dequeueReusableCellWithIdentifier("\(indexPath.row)", forIndexPath: indexPath) as! TimeSelectionTVCell
+        let time = getTimeFromRow(indexPath.row)
+        //cell.timeLabel.text = time.1
+        //cell.timeLabel.textColor = UIColor.blueColor();
+        cell.textLabel?.text = time.1
+        cell.hour = time.0
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        cellArray[indexPath.row] = true
-    }
+    // MARK: Private functions
     
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        cellArray[indexPath.row] = false
-    }
-    
-    // MARK: Private auxilliary functions
-    
-    private func getRowText(rowNum: Int) -> String {
+    private func getTimeFromRow(rowNum: Int) -> (Int, String) {
         // Takes the numbers 0-23 and converts them to 4am-3am
         
         let adjustedNum = rowNum + 4   // We start at 4am
         let time = ((adjustedNum + 11) % 12) + 1
         let amPm = adjustedNum < 12 || adjustedNum > 23 ? " am" : " pm"
         
-        return String(time) + amPm
+        return (time, String(time) + amPm)
     }
     
-    private func updateFreeTime() {
-        let selectedRows = self.tableView.indexPathsForSelectedRows
-        var freeTime: [(Int, Int)] = []
-        freeTime.append((1,2))
-        model.freeTime = freeTime
+    @objc private func updateFreeTime(notification: NSNotification) {
+        if let cell = notification.object as? TimeSelectionTVCell {
+            if let indexPath = tableView.indexPathForCell(cell) {
+                cells[indexPath.row] = cell.getSelectionStatus()
+                //self.tableView.reloadData()
+            }
+        }
     }
     
     private func updateUI() {
         // pre-select cells
     }
     
+    // MARK: Life cycle
+    override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateFreeTime), name: "TimeSelectionCellModelUpdate", object: nil)
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "TimeSelectionCellModelUpdate", object: nil)
+    }
+    
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // First, update model
-        updateFreeTime()
         if let identifier = segue.identifier {
             switch identifier {
                 case "Show Task Builder":
@@ -90,4 +96,13 @@ class TimeSelectionTVController: UITableViewController {
         self.performSegueWithIdentifier("Show Task Arranger", sender: self.navigationItem.rightBarButtonItem)
     }
     
+}
+
+extension NSCoder {
+    class func empty() -> NSCoder {
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+        archiver.finishEncoding()
+        return NSKeyedUnarchiver(forReadingWithData: data)
+    }
 }

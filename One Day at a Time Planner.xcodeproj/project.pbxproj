@@ -82,11 +82,11 @@
 			isa = PBXGroup;
 			children = (
 				9437BED31CC025BF005AAF07 /* TimeSelectionTVController.swift */,
-				9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */,
-				94F22A6F1CC66BA000A0C291 /* Task.swift */,
 				9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */,
-				9437BEBF1CC024AB005AAF07 /* Main.storyboard */,
+				9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */,
 				94559CBB1CD5453500CAAE89 /* TaskBuilderTVCell.swift */,
+				94F22A6F1CC66BA000A0C291 /* Task.swift */,
+				9437BEBF1CC024AB005AAF07 /* Main.storyboard */,
 				9437BED01CC024C0005AAF07 /* Miscellaneous */,
 			);
 			path = "One Day at a Time Planner";
