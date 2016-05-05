@@ -11,14 +11,31 @@ import MGSwipeTableCell
 
 class TimeSelectionTVCell: MGSwipeTableCell {
     
-    private var selectedParts = (false, false, false, false) {
+    // MARK: Constants/Private data
+    
+    private var selectedParts: [Bool]? {
         didSet {
             NSNotificationCenter.defaultCenter().postNotificationName("TimeSelectionCellModelUpdate", object: self)
         }
     }
     
-    var hour: Int?
+    struct colorCode {
+        static let active = UIColor.grayColor()
+        static let inactive = UIColor.whiteColor()
+    }
+    
+    struct Constants {
+        static let numberOfButtons = 4
+    }
+    
     private var firstTimeSetup = true
+    
+    // MARK: Data set by others
+    
+    var hour: Int?
+    var selectedData: [Bool]?
+
+    // MARK: Initialization
     
     override func awakeFromNib() {
         // This is only run once for each cell
@@ -40,25 +57,14 @@ class TimeSelectionTVCell: MGSwipeTableCell {
             self.leftButtons = makeButtons()
             setButtonTitles()
             makeCallBacks()
+            reloadFromData()
             updateTimeModel()
         }
         updateUI()
     }
     
-    
-    
-    private struct colorCode {
-        static let active = UIColor.grayColor()
-        static let inactive = UIColor.whiteColor()
-    }
-    
-    private struct Constants {
-        private static let numberOfButtons = 4
-    }
-    
-    
     private func setButtonTitles() {
-        for i in 0...(Constants.numberOfButtons-1) {
+        for i in 0..<Constants.numberOfButtons {
             if let hr = hour {
                 var minutes = "\(60/Constants.numberOfButtons * i)"
                 if minutes == "0" {minutes = "00"}
@@ -70,70 +76,115 @@ class TimeSelectionTVCell: MGSwipeTableCell {
     
     private func makeButtons() -> [MGSwipeButton] {
         var buttonArr = [MGSwipeButton]()
-        for _ in 0...(Constants.numberOfButtons-1) {
+        for _ in 0..<Constants.numberOfButtons {
             let button = MGSwipeButton(title: "", backgroundColor: colorCode.inactive)
-            //button.buttonWidth = self.contentView.frame.size.width / (CGFloat(Constants.numberOfButtons)+3)
-            button.buttonWidth = 414.0 / (CGFloat(Constants.numberOfButtons))
+            button.buttonWidth = self.contentView.frame.size.width / (CGFloat(Constants.numberOfButtons))
             button.layer.borderWidth = 1
             button.layer.borderColor = UIColor.blackColor().CGColor
             button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+            button.backgroundColor = colorCode.inactive
             buttonArr.append(button)
         }
         return buttonArr
     }
     
     private func makeCallBacks() {
-        for i in 0...(Constants.numberOfButtons-1) {
+        for i in 0..<Constants.numberOfButtons {
             if let button = self.leftButtons[i] as? MGSwipeButton {
                 button.callback = { [weak self] (sender: MGSwipeTableCell!) -> Bool in
-                    if button.backgroundColor == colorCode.inactive {
-                        button.backgroundColor = colorCode.active
+                    if !button.hasBeenSelected() {
+                        button.setSelectedStatus(true)
                     } else {
-                        button.backgroundColor = colorCode.inactive
+                        button.setSelectedStatus(false)
                     }
-                    self!.updateUI()
-                    self!.updateTimeModel()
+                    self?.updateTimeModel()
                     return false
                 }
             }
 
         }
-
     }
+    
+    // MARK: Private updating functions
     
     @objc private func updateUI() {
         // Keep buttons out if at least one is active
-        if atLeastOneButtonIsPressed() {
+        if !self.selected && atLeastOneButtonIsPressed() {
             showSwipe(MGSwipeDirection.LeftToRight, animated: false)
         }
     }
     
-    private func updateTimeModel() {
-        var tmp = [false, false, false, false, false, false, false]
-        if self.selected {
-            tmp[0] = true
-        }
-        for i in 0...(Constants.numberOfButtons-1) {
-            if self.leftButtons[i].backgroundColor == colorCode.active {
-                tmp[0] = false
-                tmp[i+1] = true
+    private func reloadFromData() {
+        if let data = selectedData {
+            if data[0] != true {   // First index is a flag for "the entire thing is selected"
+                for index in 0..<Constants.numberOfButtons {
+                    if data[index+1] == true {
+                        if let button = self.leftButtons[index] as? MGSwipeButton {
+                            button.backgroundColor = colorCode.active
+                        }
+                    }
+                }
             }
+            
         }
-        selectedParts = (tmp[0], tmp[1], tmp[2], tmp[3])
+        
     }
     
+    // MARK: Private auxilliary functions
     
     private func atLeastOneButtonIsPressed() -> Bool {
         for button in self.leftButtons {
-            if button.backgroundColor == colorCode.active {
+            if button.hasBeenSelected() {
                 return true
             }
         }
         return false
     }
     
-    func getSelectionStatus() -> (Bool, Bool, Bool, Bool) {
-        return selectedParts
+    // MARK: Public API
+    
+    func getSelectionStatus() -> [Bool] {
+        if let sp = selectedParts {
+            return sp
+        }
+        fatalError("selectedParts in TimeSelectionTVCell has a value of nil")
     }
     
+    func updateTimeModel() {
+        var tmp = [Bool](count: Constants.numberOfButtons+1, repeatedValue: false)
+        if self.selected {
+            tmp[0] = true
+            for i in 1..<tmp.count {
+                tmp[i] = false
+            }
+        } else {
+            for i in 0..<Constants.numberOfButtons {
+                if self.leftButtons[i].hasBeenSelected() {
+                    tmp[0] = false
+                    tmp[i+1] = true
+                }
+            }
+        }
+
+        selectedParts = tmp
+    }
+    
+}
+
+extension MGSwipeButton {
+    func hasBeenSelected() -> Bool {
+        if self.backgroundColor == TimeSelectionTVCell.colorCode.active {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func setSelectedStatus(bool: Bool) {
+        if (bool) {
+            self.backgroundColor = TimeSelectionTVCell.colorCode.active
+        } else {
+            self.backgroundColor = TimeSelectionTVCell.colorCode.inactive
+        }
+    }
 }

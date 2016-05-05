@@ -40,5 +40,5 @@ class Task: CustomStringConvertible {
 
 struct todoInfo {
     var tasks: [Task]
-    var freeTime: [(Int, Int)]
+    var freeTime: [(Double, Double)]
 }

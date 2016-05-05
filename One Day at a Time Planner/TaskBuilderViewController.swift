@@ -16,7 +16,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     private var currentlyEditing = false;
     
     // MARK: Data set by others
-    var freeTime: [(Int, Int)]? {
+    var freeTime: [(Double, Double)]? {
         didSet {
             taskInfo.freeTime = freeTime!
         }
@@ -181,6 +181,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
                     if let nav = segue.destinationViewController as? UINavigationController {
                         if let tsvc = nav.topViewController as? TimeSelectionTVController {
                             tsvc.tasks = taskInfo.tasks
+                            tsvc.freeTime = freeTime
                         }
                     }
             default: break
