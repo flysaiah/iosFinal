@@ -7,7 +7,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Task Builder-->
+        <!--Add Tasks-->
         <scene sceneID="rIb-m2-qqr">
             <objects>
                 <viewController id="hS5-G3-TeA" customClass="TaskBuilderViewController" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target" sceneMemberID="viewController">
@@ -204,7 +204,7 @@
                             <constraint firstItem="QlI-jo-jgh" firstAttribute="leading" secondItem="3cd-Lz-wb7" secondAttribute="trailing" constant="8" id="wqh-mI-UaO"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Task Builder" id="gDP-vq-MYw">
+                    <navigationItem key="navigationItem" title="Add Tasks" id="gDP-vq-MYw">
                         <barButtonItem key="leftBarButtonItem" title="Edit time" id="lgl-tH-gGO">
                             <connections>
                                 <segue destination="uXa-Rb-Onq" kind="showDetail" identifier="Show Time Selector" id="1LE-wx-03u"/>
@@ -448,7 +448,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="qro-UD-JZ9" kind="showDetail" identifier="Show Task Arranger" id="3JW-3y-Em2"/>
+                        <segue destination="Bhd-Zq-9Eu" kind="showDetail" identifier="Show Task Arranger" id="3JW-3y-Em2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZY-1o-kh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -478,10 +478,10 @@
             </objects>
             <point key="canvasLocation" x="285" y="637"/>
         </scene>
-        <!--View Controller-->
+        <!--Your Schedule-->
         <scene sceneID="MXv-31-W05">
             <objects>
-                <viewController id="qro-UD-JZ9" sceneMemberID="viewController">
+                <viewController id="qro-UD-JZ9" customClass="TaskArrangerViewController" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qAd-T2-0wb"/>
                         <viewControllerLayoutGuide type="bottom" id="vwU-0j-z9p"/>
@@ -489,12 +489,67 @@
                     <view key="view" contentMode="scaleToFill" id="hRC-vq-r9f">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-Wm-OIM">
+                                <rect key="frame" x="0.0" y="64" width="295" height="536"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Schedule Cell" id="9sL-cw-IPp" customClass="TaskScheduleCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="114" width="295" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sL-cw-IPp" id="WOI-2s-bRm">
+                                            <rect key="frame" x="0.0" y="0.0" width="295" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.81665790739999999" green="0.82576562860000002" blue="0.89620250879999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qro-UD-JZ9" id="gN9-us-KWI"/>
+                                    <outlet property="delegate" destination="qro-UD-JZ9" id="UUQ-Tu-UZA"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xaI-cH-3on">
+                                <rect key="frame" x="305" y="64" width="295" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Schedule Cell" id="E5m-Mf-ISY" customClass="TaskScheduleCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="295" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E5m-Mf-ISY" id="Zeb-16-e2o">
+                                            <rect key="frame" x="0.0" y="0.0" width="295" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qro-UD-JZ9" id="CgB-DH-cZi"/>
+                                    <outlet property="delegate" destination="qro-UD-JZ9" id="wfy-tE-Jki"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vwU-0j-z9p" firstAttribute="top" secondItem="xaI-cH-3on" secondAttribute="bottom" id="EZZ-BY-8np"/>
+                            <constraint firstItem="vwU-0j-z9p" firstAttribute="top" secondItem="sjk-Wm-OIM" secondAttribute="bottom" id="GE7-SB-nog"/>
+                            <constraint firstItem="sjk-Wm-OIM" firstAttribute="top" secondItem="qAd-T2-0wb" secondAttribute="bottom" id="Pwf-ki-A18"/>
+                            <constraint firstItem="sjk-Wm-OIM" firstAttribute="trailing" secondItem="hRC-vq-r9f" secondAttribute="centerX" constant="-5" id="U9F-oJ-A7K"/>
+                            <constraint firstItem="xaI-cH-3on" firstAttribute="leading" secondItem="hRC-vq-r9f" secondAttribute="centerX" constant="5" id="UU5-n9-IYc"/>
+                            <constraint firstItem="sjk-Wm-OIM" firstAttribute="leading" secondItem="hRC-vq-r9f" secondAttribute="leadingMargin" constant="-20" id="itx-c0-jLj"/>
+                            <constraint firstItem="xaI-cH-3on" firstAttribute="top" secondItem="qAd-T2-0wb" secondAttribute="bottom" id="ps5-uu-au3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xaI-cH-3on" secondAttribute="trailing" constant="-20" id="qiL-NU-uXM"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Your Schedule" id="aNr-Nc-22m"/>
+                    <connections>
+                        <outlet property="extraTasksTableView" destination="xaI-cH-3on" id="e48-SH-Zec"/>
+                        <outlet property="scheduleTableView" destination="sjk-Wm-OIM" id="YqA-Yc-C4y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJk-yH-lVq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1053" y="2047"/>
+            <point key="canvasLocation" x="1865" y="2047"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="B4k-ZV-Nfd">
@@ -517,6 +572,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="19I-C6-V7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1665" y="1353"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="g9p-uz-I5b">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bhd-Zq-9Eu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rVh-U4-hn2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qro-UD-JZ9" kind="relationship" relationship="rootViewController" id="A0T-f7-X6O"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qqJ-cL-deQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1053" y="2047"/>
         </scene>
     </scenes>
 </document>
