@@ -481,7 +481,7 @@
         <!--Your Schedule-->
         <scene sceneID="MXv-31-W05">
             <objects>
-                <viewController id="qro-UD-JZ9" customClass="TaskArrangerViewController" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="qro-UD-JZ9" customClass="TaskArrangerViewController" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qAd-T2-0wb"/>
                         <viewControllerLayoutGuide type="bottom" id="vwU-0j-z9p"/>
@@ -490,43 +490,106 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-Wm-OIM">
-                                <rect key="frame" x="0.0" y="64" width="295" height="536"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Schedule Cell" id="9sL-cw-IPp" customClass="TaskScheduleCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="114" width="295" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sL-cw-IPp" id="WOI-2s-bRm">
-                                            <rect key="frame" x="0.0" y="0.0" width="295" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.81665790739999999" green="0.82576562860000002" blue="0.89620250879999996" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="qro-UD-JZ9" id="gN9-us-KWI"/>
-                                    <outlet property="delegate" destination="qro-UD-JZ9" id="UUQ-Tu-UZA"/>
-                                </connections>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xaI-cH-3on">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xaI-cH-3on">
                                 <rect key="frame" x="305" y="64" width="295" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Schedule Cell" id="E5m-Mf-ISY" customClass="TaskScheduleCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="295" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E5m-Mf-ISY" id="Zeb-16-e2o">
-                                            <rect key="frame" x="0.0" y="0.0" width="295" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="295" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="100" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuL-TW-uoI">
+                                                    <rect key="frame" x="8" y="8" width="260" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j05-SF-Rgq">
+                                                    <rect key="frame" x="271" y="8" width="20" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="sOW-4Y-Dwr"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BuL-TW-uoI" firstAttribute="leading" secondItem="Zeb-16-e2o" secondAttribute="leadingMargin" id="6mW-ad-FKA"/>
+                                                <constraint firstItem="BuL-TW-uoI" firstAttribute="top" secondItem="Zeb-16-e2o" secondAttribute="topMargin" id="FaD-jP-VFd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="BuL-TW-uoI" secondAttribute="bottom" id="Jz2-sg-YEC"/>
+                                                <constraint firstItem="j05-SF-Rgq" firstAttribute="top" secondItem="Zeb-16-e2o" secondAttribute="topMargin" id="UMs-xd-VTy"/>
+                                                <constraint firstItem="j05-SF-Rgq" firstAttribute="trailing" secondItem="Zeb-16-e2o" secondAttribute="trailingMargin" constant="4" id="WN6-3d-sJQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="j05-SF-Rgq" secondAttribute="bottom" id="tOb-yV-EVo"/>
+                                                <constraint firstItem="j05-SF-Rgq" firstAttribute="leading" secondItem="BuL-TW-uoI" secondAttribute="trailing" constant="3" id="xAC-36-4i5"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.81665790739999999" green="0.82576562860000002" blue="0.89620250879999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.33758520320000002" green="0.01369734303" blue="0.86353772100000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="priorityLabel" destination="j05-SF-Rgq" id="5vc-XD-gbn"/>
+                                            <outlet property="taskLabel" destination="BuL-TW-uoI" id="upW-ez-xUU"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="qro-UD-JZ9" id="CgB-DH-cZi"/>
                                     <outlet property="delegate" destination="qro-UD-JZ9" id="wfy-tE-Jki"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sjk-Wm-OIM">
+                                <rect key="frame" x="0.0" y="64" width="295" height="536"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="0.097517730499999997" green="0.097517730499999997" blue="0.097517730499999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Task Schedule Cell" id="9sL-cw-IPp" customClass="TaskScheduleCell" customModule="One_Day_at_a_Time_Planner" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="295" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9sL-cw-IPp" id="WOI-2s-bRm">
+                                            <rect key="frame" x="0.0" y="0.0" width="295" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCS-py-Wqt">
+                                                    <rect key="frame" x="8" y="8" width="260" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NxD-o0-OtN">
+                                                    <rect key="frame" x="271" y="8" width="20" height="27"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="K8r-Ve-XlC"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="yCS-py-Wqt" firstAttribute="top" secondItem="WOI-2s-bRm" secondAttribute="topMargin" id="Khu-2H-YYF"/>
+                                                <constraint firstItem="NxD-o0-OtN" firstAttribute="top" secondItem="WOI-2s-bRm" secondAttribute="topMargin" id="NB2-aG-KEc"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="yCS-py-Wqt" secondAttribute="bottom" id="Sdt-we-m2N"/>
+                                                <constraint firstItem="yCS-py-Wqt" firstAttribute="leading" secondItem="WOI-2s-bRm" secondAttribute="leadingMargin" id="SrT-OV-Qj8"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NxD-o0-OtN" secondAttribute="bottom" id="cso-KG-v0l"/>
+                                                <constraint firstItem="NxD-o0-OtN" firstAttribute="trailing" secondItem="WOI-2s-bRm" secondAttribute="trailingMargin" constant="4" id="rhN-O8-t1J"/>
+                                                <constraint firstItem="NxD-o0-OtN" firstAttribute="leading" secondItem="yCS-py-Wqt" secondAttribute="trailing" constant="3" id="zbC-DL-MkG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="priorityLabel" destination="NxD-o0-OtN" id="SJZ-Mh-YHD"/>
+                                            <outlet property="taskLabel" destination="yCS-py-Wqt" id="gc7-HS-ZDI"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qro-UD-JZ9" id="gN9-us-KWI"/>
+                                    <outlet property="delegate" destination="qro-UD-JZ9" id="UUQ-Tu-UZA"/>
                                 </connections>
                             </tableView>
                         </subviews>

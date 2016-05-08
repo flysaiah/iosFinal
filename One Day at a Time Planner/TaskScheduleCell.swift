@@ -10,4 +10,17 @@ import UIKit
 
 class TaskScheduleCell: UITableViewCell {
 
+    @IBOutlet weak var taskLabel: UILabel!
+    @IBOutlet weak var priorityLabel: UILabel!
+    
+    var task: Task? {
+        didSet {
+            setProperties()
+        }
+    }
+    
+    private func setProperties() {
+        taskLabel.text = "\(task!.getTitle()): \(task!.getEstimatedTime()) min"
+        priorityLabel.text = task!.getPriority() ? "!" : ""
+    }
 }

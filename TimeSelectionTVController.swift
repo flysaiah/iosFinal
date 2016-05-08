@@ -157,7 +157,12 @@ class TimeSelectionTVController: UITableViewController {
                         }
                     }
                 case "Show Task Arranger":
-                    print("WOOO!!!")
+                    if let nav = segue.destinationViewController as? UINavigationController {
+                        if let ta = nav.topViewController as? TaskArrangerViewController {
+                            ta.freeTime = model.freeTime
+                            ta.tasks = model.tasks
+                        }
+                }
             default: break
             }
         }
