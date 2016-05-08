@@ -22,6 +22,12 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         }
     }
     
+    var tasks: [Task]? {
+        didSet {
+            taskInfo.tasks = tasks!
+        }
+    }
+    
     // MARK: IBOutlets/Actions
     
     @IBOutlet weak var enterTaskField: UITextField!
@@ -144,6 +150,22 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         self.view.endEditing(true)
     }
     
+    // MARK: Storage
+    
+    private func saveToDefaults() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let encodedTasks = NSKeyedArchiver.archivedDataWithRootObject(taskInfo.tasks)
+        defaults.setObject(encodedTasks, forKey: "tasks")
+    }
+    
+    private func loadFromDefaults() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let encodedTasks = defaults.objectForKey("tasks") as? NSData {
+            let tasks = NSKeyedUnarchiver.unarchiveObjectWithData(encodedTasks) as! [Task]
+            self.tasks = tasks
+        }
+    }
+    
     // MARK: Life cycle
     
     override func viewDidAppear(animated: Bool) {
@@ -156,12 +178,10 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         
         addObservers()
         addGestures()
-
+        loadFromDefaults()
         
         // to achieve bottom-anchored tablecell behavior
         self.taskTable.transform = CGAffineTransformMakeScale(1, -1)
-        
-        // Delete button is disabled until someone taps a cell
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -175,18 +195,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     // Mark: Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-                case "Show Time Selector":
-                    if let nav = segue.destinationViewController as? UINavigationController {
-                        if let tsvc = nav.topViewController as? TimeSelectionTVController {
-                            tsvc.tasks = taskInfo.tasks
-                            tsvc.freeTime = freeTime
-                        }
-                    }
-            default: break
-            }
-        }
+        saveToDefaults()
     }
     
     

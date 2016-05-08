@@ -16,7 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        // Determine whether to present Time Selector or Task Arranger
+                
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let _ = defaults.objectForKey("Schedule") {
+            let taskArrangerNav: UINavigationController = mainStoryboard.instantiateViewControllerWithIdentifier("Task Arranger Nav") as! UINavigationController
+            self.window?.rootViewController = taskArrangerNav
+        } else {
+            let timeSelectorNav: UINavigationController = mainStoryboard.instantiateViewControllerWithIdentifier("Time Selector Nav") as! UINavigationController
+            self.window?.rootViewController = timeSelectorNav
+        }
+        
+        self.window?.makeKeyAndVisible()
+        
+        
         return true
     }
 

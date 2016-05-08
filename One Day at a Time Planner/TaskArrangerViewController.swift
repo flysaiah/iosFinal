@@ -13,27 +13,25 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
     // MARK: Model + private data
     
     private var extrasModel: [Task] = []
-    private var scheduleModel: [[Task]]?
-    private var timeRanges: [(Double, Double)]?
-    
-    
-    // Other MVC's set these to prepare this--they are expected to be set on preparation of page
-    var freeTime: [(Double, Double)]? {
-        didSet {
-            timeRanges = createFreeTime(freeTime!)
-            scheduleModel = [[Task]](count: timeRanges!.count, repeatedValue: [])
-        }
-    }
-    
-    var tasks: [Task]? {
-        didSet {
-            extrasModel = tasks!
-        }
-    }
+    private var scheduleModel: [[Task]] = []
+    private var timeRanges: [(Double, Double)] = []
+    private var isDeleted = false
 
-    // MARK: IBOutlets
+    // MARK: IBOutlets/actions
     @IBOutlet weak var scheduleTableView: UITableView!
     @IBOutlet weak var extraTasksTableView: UITableView!
+    
+    @IBAction func deleteSchedule(sender: UIBarButtonItem) {
+        // Delete everything from NSUserDefaults
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!)
+        isDeleted = true
+        self.shouldPerformSegueWithIdentifier("Show Time Selector", sender: self)
+        self.performSegueWithIdentifier("Show Time Selector", sender: self)
+        
+    }
+    @IBAction func saveState(sender: UIBarButtonItem) {
+        saveSchedule()
+    }
     
     // MARK: Tableview delegate/datasource functions
     
@@ -41,13 +39,13 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
         if tableView == extraTasksTableView {
             return extrasModel.count
         } else {
-            return scheduleModel![section].count
+            return scheduleModel[section].count
         }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if tableView == scheduleTableView {
-            return timeRanges!.count
+            return timeRanges.count
         } else {
             return 1
         }
@@ -55,9 +53,9 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == scheduleTableView {
-            let start = getTime(timeRanges![section].0)
-            let end = getTime(timeRanges![section].1)
-            let remainingTime = getRemainingTime(forSection: section, sectionTasks: scheduleModel![section])
+            let start = getTime(timeRanges[section].0)
+            let end = getTime(timeRanges[section].1)
+            let remainingTime = getRemainingTime(forSection: section, sectionTasks: scheduleModel[section])
             return "\(start)-\(end)\n(\(remainingTime) min remaining)"
         }
         return nil
@@ -66,7 +64,7 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier("Task Schedule Cell", forIndexPath: indexPath) as? TaskScheduleCell {
             if tableView == scheduleTableView {
-                cell.task = scheduleModel![indexPath.section][indexPath.row]
+                cell.task = scheduleModel[indexPath.section][indexPath.row]
             } else {
                 cell.taskLabel.textColor = UIColor.whiteColor()
                 cell.priorityLabel.textColor = UIColor.whiteColor()
@@ -80,6 +78,17 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     // MARK: Private auxilliary functions
+    
+    private func isInScheduleModel(task task: Task) -> Bool {
+        for sectionIndex in 0..<scheduleModel.count {
+            for someTask in scheduleModel[sectionIndex] {
+                if task == someTask {
+                    return true
+                }
+            }
+        }
+        return false
+    }
     
     private func createFreeTime(freeTime: [(Double, Double)]) -> [(Double, Double)] {
         // Algorithm that maps FreeTime: (<Start of free time>, <Duration of free time>) to (<Start of free time>, <End of free time>)
@@ -129,7 +138,7 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
     
     private func getRemainingTime(forSection section: Int, sectionTasks: [Task]) -> Int {
         // Calculates remaining time after insertion of tasks into schedule section
-        let timeRange = timeRanges![section]
+        let timeRange = timeRanges[section]
         var totalTime = Int((timeRange.1 - timeRange.0)*60)
         for task in sectionTasks {
             totalTime -= task.getEstimatedTime()
@@ -179,28 +188,26 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
                     header?.backgroundView?.backgroundColor = UIColor.darkGrayColor()
                 }
             }
-            
-            
         case UIGestureRecognizerState.Ended:
             // Update cell models, remove snapshot
             let locationInScheduleTable = longPress.locationInView(scheduleTableView)
             // First check if it's hovering over table cells
             if let ip = scheduleTableView.indexPathForRowAtPoint(locationInScheduleTable) {
                 // add cell to schedule model, remove it from extras model
-                var tmp = scheduleModel![ip.section]
+                var tmp = scheduleModel[ip.section]
                 tmp.insert(extrasModel[LongPressConstants.initialIndexPath!.row], atIndex: ip.row)
                 // Only make changes if there's enough time in the block to handle the new task
                 if getRemainingTime(forSection: ip.section, sectionTasks: tmp) >= 0 {
-                    scheduleModel![ip.section] = tmp
+                    scheduleModel[ip.section] = tmp
                     extrasModel.removeAtIndex(LongPressConstants.initialIndexPath!.row)
                 }
                 // Default way to add is to drag section header
             } else if let sectionIndex = getTargetedSectionIndex(locationInScheduleTable) {
-                var tmp = scheduleModel![sectionIndex]
+                var tmp = scheduleModel[sectionIndex]
                 tmp.append(extrasModel[LongPressConstants.initialIndexPath!.row])
                 // Only make changes if there's enough time in the block to handle the new task
                 if getRemainingTime(forSection: sectionIndex, sectionTasks: tmp) >= 0 {
-                    scheduleModel![sectionIndex] = tmp
+                    scheduleModel[sectionIndex] = tmp
                     extrasModel.removeAtIndex(LongPressConstants.initialIndexPath!.row)
                 }
             }
@@ -259,14 +266,14 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
             // Update cell models, remove snapshot
             // First check if it's hovering over table cells
             if let ip = scheduleTableView.indexPathForRowAtPoint(locationInScheduleTable) {
-                var tmp = scheduleModel![ip.section]
-                tmp.insert(scheduleModel![LongPressConstants.initialIndexPath!.section][LongPressConstants.initialIndexPath!.row], atIndex: ip.row)
+                var tmp = scheduleModel[ip.section]
+                tmp.insert(scheduleModel[LongPressConstants.initialIndexPath!.section][LongPressConstants.initialIndexPath!.row], atIndex: ip.row)
                 if ip.section == LongPressConstants.initialIndexPath!.section {
                     tmp.removeAtIndex(LongPressConstants.initialIndexPath!.row + 1)
-                    scheduleModel![ip.section] = tmp
+                    scheduleModel[ip.section] = tmp
                 } else {
-                    scheduleModel![ip.section] = tmp
-                    scheduleModel![LongPressConstants.initialIndexPath!.section].removeAtIndex(LongPressConstants.initialIndexPath!.row)
+                    scheduleModel[ip.section] = tmp
+                    scheduleModel[LongPressConstants.initialIndexPath!.section].removeAtIndex(LongPressConstants.initialIndexPath!.row)
                 }
 
 
@@ -274,18 +281,18 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
             } else if let sectionIndex = getTargetedSectionIndex(locationInScheduleTable) {
                 // Can't re-insert into same section
                 if sectionIndex != LongPressConstants.initialIndexPath!.section {
-                    var tmp = scheduleModel![sectionIndex]
-                    tmp.append(scheduleModel![LongPressConstants.initialIndexPath!.section][LongPressConstants.initialIndexPath!.row])
+                    var tmp = scheduleModel[sectionIndex]
+                    tmp.append(scheduleModel[LongPressConstants.initialIndexPath!.section][LongPressConstants.initialIndexPath!.row])
                     // Only make changes if there's enough time in the block to handle the new task
                     if getRemainingTime(forSection: sectionIndex, sectionTasks: tmp) >= 0 {
-                        scheduleModel![sectionIndex] = tmp
-                        scheduleModel![LongPressConstants.initialIndexPath!.section].removeAtIndex(LongPressConstants.initialIndexPath!.row)
+                        scheduleModel[sectionIndex] = tmp
+                        scheduleModel[LongPressConstants.initialIndexPath!.section].removeAtIndex(LongPressConstants.initialIndexPath!.row)
                     }
                 }
                 // Default is to put it back into the extras list
             } else {
-                extrasModel.append(scheduleModel![LongPressConstants.initialIndexPath!.section][LongPressConstants.initialIndexPath!.row])
-                scheduleModel![LongPressConstants.initialIndexPath!.section].removeAtIndex(LongPressConstants.initialIndexPath!.row)
+                extrasModel.append(scheduleModel[LongPressConstants.initialIndexPath!.section][LongPressConstants.initialIndexPath!.row])
+                scheduleModel[LongPressConstants.initialIndexPath!.section].removeAtIndex(LongPressConstants.initialIndexPath!.row)
             }
             LongPressConstants.cellSnapshot?.removeFromSuperview()
             extraTasksTableView.reloadData()
@@ -315,14 +322,14 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
     
     private func resetBackgrounds() {
         // Resets background color of each section in schedule table to natural state
-        for sectionIndex in 0..<scheduleModel!.count {
+        for sectionIndex in 0..<scheduleModel.count {
             scheduleTableView.headerViewForSection(sectionIndex)!.backgroundView?.backgroundColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 0.0)
         }
     }
     
     private func getTargetedSectionIndex(location: CGPoint) -> Int? {
         // If snapshot is above one of the schedule table sections, return the section index--otherwise return nil
-        for sectionIndex in 0..<scheduleModel!.count {
+        for sectionIndex in 0..<scheduleModel.count {
             if CGRectContainsPoint(scheduleTableView.headerViewForSection(sectionIndex)!.frame, location) {
                 return sectionIndex
             }
@@ -330,15 +337,66 @@ class TaskArrangerViewController: UIViewController, UITableViewDelegate, UITable
         return nil
     }
     
+    // MARK: Storage
+    private func saveSchedule() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let encodedSchedule = NSKeyedArchiver.archivedDataWithRootObject(scheduleModel)
+        defaults.setObject(encodedSchedule, forKey: "Schedule")
+    }
+    
+    private func loadFromDefaults() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+
+        if let ft = defaults.objectForKey("Free time") as? [[Double]] {
+            var freeTime = [(Double, Double)]()
+            for pseudoTuple in ft {
+                freeTime.append((pseudoTuple[0], pseudoTuple[1]))
+            }
+            timeRanges = createFreeTime(freeTime)
+        }
+        
+        if let encodedSchedule = defaults.objectForKey("Schedule") as? NSData {
+            let schedule = NSKeyedUnarchiver.unarchiveObjectWithData(encodedSchedule) as! [[Task]]
+            scheduleModel = schedule
+            if scheduleModel.count == 0 {
+                scheduleModel = [[Task]](count: timeRanges.count, repeatedValue: [])
+            }
+        } else {
+            scheduleModel = [[Task]](count: timeRanges.count, repeatedValue: [])
+        }
+        
+        if let encodedTasks = defaults.objectForKey("tasks") as? NSData {
+            let tasks = NSKeyedUnarchiver.unarchiveObjectWithData(encodedTasks) as! [Task]
+            var taskArr = [Task]()
+            for task in tasks {
+                if !isInScheduleModel(task: task) {
+                    taskArr.append(task)
+                }
+            }
+            extrasModel = taskArr
+        }
+    }
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        loadFromDefaults()
+        saveSchedule()
         // Long press to start dragging from extras table to schedule table
         let longPress1 = UILongPressGestureRecognizer(target: self, action: #selector(dragFromExtrasRecognizer))
+        longPress1.minimumPressDuration = 0.1
         extraTasksTableView.addGestureRecognizer(longPress1)
         // Long press to start dragging from schedule table to either schedule table or extras table
         let longPress2 = UILongPressGestureRecognizer(target: self, action: #selector(dragFromScheduleRecognizer))
+        longPress2.minimumPressDuration = 0.2
         scheduleTableView.addGestureRecognizer(longPress2)
+    }
+    
+    // Mark: Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if !isDeleted {
+            saveSchedule()
+        }
     }
 }

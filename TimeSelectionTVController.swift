@@ -13,25 +13,7 @@ class TimeSelectionTVController: UITableViewController {
     // MARK: Private data + model
     
     private var cellDataArray = [[Bool]](count: 24, repeatedValue: [Bool](count: TimeSelectionTVCell.Constants.numberOfButtons+1, repeatedValue: false))
-    
-    private var model = todoInfo(tasks: [], freeTime: [])
-    
-    // This will be set when task builder returns with updated task array
-    var tasks: [Task]? {
-        didSet {
-            model.tasks = tasks!
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(segueToTaskArranger))
-            //updateUI()
-        }
-    }
-    
-    var freeTime: [(Double, Double)]? {  // temporary until user defaults storage is working
-        didSet {
-            model.freeTime = freeTime!
-            createCellArrayFromFreeTime()
-            updateUI()
-        }
-    }
+    private var freeTime: [(Double, Double)] = []
         
     // MARK: TableView constructors
     
@@ -91,12 +73,12 @@ class TimeSelectionTVController: UITableViewController {
     private func calculateFreeTimeFromCellArray() {
         // updates freeTime based on data from each cell
         // First, reset free time
-        model.freeTime = []
+        self.freeTime = []
         for index in 0..<cellDataArray.count {
             let hour = Double(index)   // For readability
             // easy case
             if cellDataArray[index][0] == true {
-                model.freeTime.append((hour, 1.0))
+                self.freeTime.append((hour, 1.0))
             } else {
                 // more complicated case
                 let cellData = cellDataArray[index]
@@ -109,7 +91,7 @@ class TimeSelectionTVController: UITableViewController {
                             let hourStart = hour + Double(startOfChain - 1) / Double(TimeSelectionTVCell.Constants.numberOfButtons)
                             let rangeMultiplier = Double(boolIndex - startOfChain + 1)
                             let totalTime = rangeMultiplier / Double(TimeSelectionTVCell.Constants.numberOfButtons)
-                            model.freeTime.append(hourStart, totalTime)
+                            self.freeTime.append(hourStart, totalTime)
                             startOfChain = -1
                         }
                     }
@@ -120,7 +102,7 @@ class TimeSelectionTVController: UITableViewController {
     
     private func createCellArrayFromFreeTime() {
         // reverse of calculateFreeTimeFromCellArray
-        for tuple in model.freeTime {
+        for tuple in self.freeTime {
             if tuple.1 == 1.0 {
                 cellDataArray[Int(tuple.0)][0] = true
             } else {
@@ -136,9 +118,42 @@ class TimeSelectionTVController: UITableViewController {
         }
     }
     
+    // MARK: Storage
+    private func checkDefaults() {
+        // First, load previous time selections, if any
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let ft = defaults.objectForKey("Free time") as? [[Double]] {
+            for pseudoTuple in ft {
+                self.freeTime.append((pseudoTuple[0], pseudoTuple[1]))
+            }
+        }
+        // If at least one task has been set, we show the button to allow user to go to task arranger
+        if let encodedTasks = defaults.objectForKey("tasks") as? NSData {
+            let tasks = NSKeyedUnarchiver.unarchiveObjectWithData(encodedTasks) as! [Task]
+            if tasks.count > 0 {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(segueToTaskArranger))
+            }
+        }
+    }
+    
+    private func saveToDefaults() {
+        // save free time
+        // We can't store a tuple in user defaults, so we make an array of arrays-of-length-2
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var storageArray = [[Double]]()
+        for freeTimeTuple in freeTime {
+            storageArray.append([freeTimeTuple.0, freeTimeTuple.1])
+        }
+        defaults.setObject(storageArray, forKey: "Free time")
+    }
+    
     // MARK: Life cycle
     override func viewDidLoad() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateFreeTime), name: "TimeSelectionCellModelUpdate", object: nil)
+        checkDefaults()
+        createCellArrayFromFreeTime()
+        updateUI()
+
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -148,24 +163,7 @@ class TimeSelectionTVController: UITableViewController {
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         calculateFreeTimeFromCellArray()
-        if let identifier = segue.identifier {
-            switch identifier {
-                case "Show Task Builder":
-                    if let nav = segue.destinationViewController as? UINavigationController {
-                        if let tb = nav.topViewController as? TaskBuilderViewController {
-                            tb.freeTime = model.freeTime
-                        }
-                    }
-                case "Show Task Arranger":
-                    if let nav = segue.destinationViewController as? UINavigationController {
-                        if let ta = nav.topViewController as? TaskArrangerViewController {
-                            ta.freeTime = model.freeTime
-                            ta.tasks = model.tasks
-                        }
-                }
-            default: break
-            }
-        }
+        saveToDefaults()
     }
     
     @objc private func segueToTaskArranger() {
