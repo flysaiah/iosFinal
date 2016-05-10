@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9437BEB71CC024AA005AAF07"
-            BuildableName = "One Day at a Time Planner.app"
-            BlueprintName = "One Day at a Time Planner"
-            ReferencedContainer = "container:One Day at a Time Planner.xcodeproj">
+            BuildableName = "Purple.app"
+            BlueprintName = "Purple"
+            ReferencedContainer = "container:Purple.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9437BEB71CC024AA005AAF07"
-            BuildableName = "One Day at a Time Planner.app"
-            BlueprintName = "One Day at a Time Planner"
-            ReferencedContainer = "container:One Day at a Time Planner.xcodeproj">
+            BuildableName = "Purple.app"
+            BlueprintName = "Purple"
+            ReferencedContainer = "container:Purple.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

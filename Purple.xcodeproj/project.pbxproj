@@ -16,6 +16,7 @@
 		9437BED61CC026D4005AAF07 /* TimeSelectionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED51CC026D4005AAF07 /* TimeSelectionTVCell.swift */; };
 		9437BED81CC09DCC005AAF07 /* TaskBuilderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */; };
 		94559CBC1CD5453500CAAE89 /* TaskBuilderTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94559CBB1CD5453500CAAE89 /* TaskBuilderTVCell.swift */; };
+		94B5FDD21CE1077200F017C2 /* purpleLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 94B5FDD11CE1077200F017C2 /* purpleLogo.png */; };
 		94E4C92C1CDC314400FAFE57 /* TaskArrangerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E4C92B1CDC314400FAFE57 /* TaskArrangerViewController.swift */; };
 		94E4C92E1CDC4A9800FAFE57 /* TaskScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E4C92D1CDC4A9800FAFE57 /* TaskScheduleCell.swift */; };
 		94F22A701CC66BA100A0C291 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F22A6F1CC66BA000A0C291 /* Task.swift */; };
@@ -24,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		846A2C875670CADFFB9B8B85 /* Pods-One Day at a Time Planner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-One Day at a Time Planner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-One Day at a Time Planner/Pods-One Day at a Time Planner.debug.xcconfig"; sourceTree = "<group>"; };
-		9437BEB81CC024AB005AAF07 /* One Day at a Time Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "One Day at a Time Planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9437BEB81CC024AB005AAF07 /* Purple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Purple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9437BEBB1CC024AB005AAF07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9437BEC01CC024AB005AAF07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9437BEC31CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = One_Day_at_a_Time_Planner.xcdatamodel; sourceTree = "<group>"; };
@@ -36,6 +37,7 @@
 		9437BED71CC09DCC005AAF07 /* TaskBuilderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBuilderViewController.swift; sourceTree = "<group>"; };
 		945590E11CD5CFEE009BD766 /* MGBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGBridgingHeader.h; sourceTree = "<group>"; };
 		94559CBB1CD5453500CAAE89 /* TaskBuilderTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBuilderTVCell.swift; sourceTree = "<group>"; };
+		94B5FDD11CE1077200F017C2 /* purpleLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleLogo.png; sourceTree = "<group>"; };
 		94E4C92B1CDC314400FAFE57 /* TaskArrangerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskArrangerViewController.swift; sourceTree = "<group>"; };
 		94E4C92D1CDC4A9800FAFE57 /* TaskScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskScheduleCell.swift; sourceTree = "<group>"; };
 		94F22A6F1CC66BA000A0C291 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -77,7 +79,7 @@
 		9437BEB91CC024AB005AAF07 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9437BEB81CC024AB005AAF07 /* One Day at a Time Planner.app */,
+				9437BEB81CC024AB005AAF07 /* Purple.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,6 +106,7 @@
 				9437BEC21CC024AB005AAF07 /* One_Day_at_a_Time_Planner.xcdatamodeld */,
 				9437BECA1CC024AB005AAF07 /* Info.plist */,
 				9437BEC71CC024AB005AAF07 /* LaunchScreen.storyboard */,
+				94B5FDD11CE1077200F017C2 /* purpleLogo.png */,
 				9437BEC51CC024AB005AAF07 /* Assets.xcassets */,
 				9437BEBB1CC024AB005AAF07 /* AppDelegate.swift */,
 				945590E11CD5CFEE009BD766 /* MGBridgingHeader.h */,
@@ -122,9 +125,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9437BEB71CC024AA005AAF07 /* One Day at a Time Planner */ = {
+		9437BEB71CC024AA005AAF07 /* Purple */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9437BECD1CC024AB005AAF07 /* Build configuration list for PBXNativeTarget "One Day at a Time Planner" */;
+			buildConfigurationList = 9437BECD1CC024AB005AAF07 /* Build configuration list for PBXNativeTarget "Purple" */;
 			buildPhases = (
 				3F9DEF134C53D4F027410096 /* Check Pods Manifest.lock */,
 				9437BEB41CC024AA005AAF07 /* Sources */,
@@ -137,9 +140,9 @@
 			);
 			dependencies = (
 			);
-			name = "One Day at a Time Planner";
+			name = Purple;
 			productName = "One Day at a Time Planner";
-			productReference = 9437BEB81CC024AB005AAF07 /* One Day at a Time Planner.app */;
+			productReference = 9437BEB81CC024AB005AAF07 /* Purple.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -158,7 +161,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9437BEB31CC024AA005AAF07 /* Build configuration list for PBXProject "One Day at a Time Planner" */;
+			buildConfigurationList = 9437BEB31CC024AA005AAF07 /* Build configuration list for PBXProject "Purple" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -171,7 +174,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9437BEB71CC024AA005AAF07 /* One Day at a Time Planner */,
+				9437BEB71CC024AA005AAF07 /* Purple */,
 			);
 		};
 /* End PBXProject section */
@@ -183,6 +186,7 @@
 			files = (
 				9437BEC91CC024AB005AAF07 /* LaunchScreen.storyboard in Resources */,
 				9437BEC61CC024AB005AAF07 /* Assets.xcassets in Resources */,
+				94B5FDD21CE1077200F017C2 /* purpleLogo.png in Resources */,
 				9437BEC11CC024AB005AAF07 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,7 +371,7 @@
 				INFOPLIST_FILE = "One Day at a Time Planner/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flysaiah.One-Day-at-a-Time-Planner";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Purple;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/isaiah/Documents/One Day at a Time Planner/One Day at a Time Planner/MGBridgingHeader.h";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -381,7 +385,7 @@
 				INFOPLIST_FILE = "One Day at a Time Planner/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.flysaiah.One-Day-at-a-Time-Planner";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Purple;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/isaiah/Documents/One Day at a Time Planner/One Day at a Time Planner/MGBridgingHeader.h";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -390,7 +394,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9437BEB31CC024AA005AAF07 /* Build configuration list for PBXProject "One Day at a Time Planner" */ = {
+		9437BEB31CC024AA005AAF07 /* Build configuration list for PBXProject "Purple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9437BECB1CC024AB005AAF07 /* Debug */,
@@ -399,7 +403,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9437BECD1CC024AB005AAF07 /* Build configuration list for PBXNativeTarget "One Day at a Time Planner" */ = {
+		9437BECD1CC024AB005AAF07 /* Build configuration list for PBXNativeTarget "Purple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9437BECE1CC024AB005AAF07 /* Debug */,

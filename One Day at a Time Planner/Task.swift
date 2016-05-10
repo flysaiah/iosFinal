@@ -63,7 +63,15 @@ class Task: NSObject, NSCoding {
     }
 }
 
-struct todoInfo {
-    var tasks: [Task]
-    var freeTime: [(Double, Double)]
+struct purpleColor {
+    static let value = UIColor(red: 86.0/255.0, green: 3.0/255.0, blue: 220.0/255.0, alpha: 1.0)
+}
+
+extension UINavigationController {
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationBar.barTintColor = purpleColor.value
+        self.navigationBar.backgroundColor = purpleColor.value
+        self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+    }
 }

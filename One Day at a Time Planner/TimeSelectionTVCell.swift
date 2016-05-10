@@ -20,7 +20,7 @@ class TimeSelectionTVCell: MGSwipeTableCell {
     }
     
     struct colorCode {
-        static let active = UIColor.grayColor()
+        static let active = UIColor.lightGrayColor()
         static let inactive = UIColor.whiteColor()
     }
     
@@ -80,8 +80,8 @@ class TimeSelectionTVCell: MGSwipeTableCell {
             let button = MGSwipeButton(title: "", backgroundColor: colorCode.inactive)
             button.buttonWidth = self.contentView.frame.size.width / (CGFloat(Constants.numberOfButtons))
             button.layer.borderWidth = 1
-            button.layer.borderColor = UIColor.blackColor().CGColor
-            button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+            button.layer.borderColor = purpleColor.value.CGColor
+            button.setTitleColor(purpleColor.value, forState: UIControlState.Normal)
             button.backgroundColor = colorCode.inactive
             buttonArr.append(button)
         }

@@ -12,22 +12,8 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     
     // MARK: Private data
     
-    private var taskInfo = todoInfo(tasks: [], freeTime: [])
-    private var currentlyEditing = false;
-    
-    // MARK: Data set by others
-    var freeTime: [(Double, Double)]? {
-        didSet {
-            taskInfo.freeTime = freeTime!
-        }
-    }
-    
-    var tasks: [Task]? {
-        didSet {
-            taskInfo.tasks = tasks!
-        }
-    }
-    
+    private var currentlyEditing = false
+    private var tasks: [Task] = []
     // MARK: IBOutlets/Actions
     
     @IBOutlet weak var enterTaskField: UITextField!
@@ -43,7 +29,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
             validationError("no ETC")
         } else if let ET = NSNumberFormatter().numberFromString(etField.text!) {
             let newTask = Task(title: enterTaskField.text!, estimatedTime: Int(ET), highPriority: prioritySwitch.on)
-            taskInfo.tasks.append(newTask)
+            tasks.append(newTask)
             taskTable.reloadData()
             
             // reset fields
@@ -58,8 +44,11 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     @IBAction func deleteTask(sender: UIButton) {
         if let tbcell = sender.superview?.superview as? TaskBuilderTVCell {
             if let indexPath = self.taskTable.indexPathForCell(tbcell) {
-                taskInfo.tasks.removeAtIndex(indexPath.row)
+                tasks.removeAtIndex(indexPath.row)
                 self.taskTable.reloadData()
+                
+                // Previous schedule is invalid now
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("Schedule")
             }
 
             
@@ -73,13 +62,13 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     // MARK: Table view delegate functions
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskInfo.tasks.count
+        return tasks.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Task Cell", forIndexPath: indexPath) as! TaskBuilderTVCell   // There is only one prototype cell, so we know we can cast it
-        cell.taskLabel.text = taskInfo.tasks[indexPath.row].description
-        cell.priorityLabel.text = taskInfo.tasks[indexPath.row].getPriority() ? "Priority" : ""
+        cell.taskLabel.text = tasks[indexPath.row].description
+        cell.priorityLabel.text = tasks[indexPath.row].getPriority() ? "Priority" : ""
             
         // to achieve bottom-anchored tablecell behavior
         cell.contentView.transform = CGAffineTransformMakeScale(1, -1)
@@ -154,7 +143,7 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
     
     private func saveToDefaults() {
         let defaults = NSUserDefaults.standardUserDefaults()
-        let encodedTasks = NSKeyedArchiver.archivedDataWithRootObject(taskInfo.tasks)
+        let encodedTasks = NSKeyedArchiver.archivedDataWithRootObject(tasks)
         defaults.setObject(encodedTasks, forKey: "tasks")
     }
     
@@ -180,8 +169,11 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         addGestures()
         loadFromDefaults()
         
+        
         // to achieve bottom-anchored tablecell behavior
         self.taskTable.transform = CGAffineTransformMakeScale(1, -1)
+        
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -198,5 +190,18 @@ class TaskBuilderViewController: UIViewController, UITextFieldDelegate, UITableV
         saveToDefaults()
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "Show Task Arranger" {
+            if tasks.count == 0 {
+                return false
+            }
+            if let ft = NSUserDefaults.standardUserDefaults().objectForKey("Free time") as? [[Double]] {
+                if ft.count == 0 {
+                    return false
+                }
+            }
+        }
+        return true
+    }
     
 }

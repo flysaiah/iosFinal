@@ -118,6 +118,18 @@ class TimeSelectionTVController: UITableViewController {
         }
     }
     
+    private func tupleArraysAreEqual(tupleArr1 tupleArr1: [(Double, Double)], tupleArr2: [(Double, Double)]) -> Bool {
+        if tupleArr1.count != tupleArr2.count {
+            return false
+        }
+        for index in 0..<tupleArr1.count {
+            if tupleArr1[index].0 != tupleArr2[index].0 || tupleArr1[index].1 != tupleArr2[index].1 {
+                return false
+            }
+        }
+        return true
+    }
+    
     // MARK: Storage
     private func checkDefaults() {
         // First, load previous time selections, if any
@@ -132,6 +144,7 @@ class TimeSelectionTVController: UITableViewController {
             let tasks = NSKeyedUnarchiver.unarchiveObjectWithData(encodedTasks) as! [Task]
             if tasks.count > 0 {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(segueToTaskArranger))
+                self.navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
             }
         }
     }
@@ -153,8 +166,9 @@ class TimeSelectionTVController: UITableViewController {
         checkDefaults()
         createCellArrayFromFreeTime()
         updateUI()
-
+        
     }
+    
     
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "TimeSelectionCellModelUpdate", object: nil)
@@ -162,7 +176,12 @@ class TimeSelectionTVController: UITableViewController {
     
     // MARK: Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let orig = self.freeTime
         calculateFreeTimeFromCellArray()
+        // If free time has been altered, previous schedules are now invalid
+        if !tupleArraysAreEqual(tupleArr1: self.freeTime, tupleArr2: orig) {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("Schedule")
+        }
         saveToDefaults()
     }
     

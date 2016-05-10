@@ -21,6 +21,7 @@ class TaskScheduleCell: UITableViewCell {
     
     private func setProperties() {
         taskLabel.text = "\(task!.getTitle()): \(task!.getEstimatedTime()) min"
+        
         priorityLabel.text = task!.getPriority() ? "!" : ""
     }
 }
